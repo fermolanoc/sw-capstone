@@ -10,7 +10,7 @@ If user were born in January, show a congrats message as well
 
 def sayHi(first_name, last_name):
     # concatenate first and last name and create a personalized welcome message
-    full_name = first_name + ' ' + last_name
+    full_name = first_name.title() + ' ' + last_name.title()
     message = f'{full_name}, Welcome to Software Development Capstone Course'
 
     # show user how many letters compose their full name
@@ -21,7 +21,7 @@ def sayHi(first_name, last_name):
 
 
 def birthdayMessage(name):
-    print(f'{name} your birthday is this month! Congrats! Hope you are having a happy month!')
+    print(f'{name.title()} your birthday is this month! Congrats! Hope you are having a happy month!')
 
 
 def main():
