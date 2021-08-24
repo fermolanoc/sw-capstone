@@ -7,14 +7,17 @@ Program that turns (almost) any sentence into camelCase style
 
 def validateSentence(sentence):
     # list of characters not valid to start a sentence
-    invalid_initial_characters = ['@', '#', '$', '*', '^', '(', ')', '_', '-']
+    invalid_initial_characters = ['@', '#', '$', '*', '^', '(', ')', '_', '-', '%']
 
     # if user's sentence starts with one of the invalid characters, keep asking
     while sentence[0] in invalid_initial_characters:
         sentence = input('Sentence must start with a letter. Try again: ')
+    
+
+    return sentence
 
 
-def convertSentenceToCamelCase(sentence)
+def convertSentenceToCamelCase(sentence):
     # separate the whole sentence into words by space, this will make a list with each word as an item
     list_of_words = sentence.split()
 
@@ -37,9 +40,9 @@ def main():
     sentence = input('Write any sentence: ')
 
 
-    validateSentence(sentence)
+    valid_sentence = validateSentence(sentence)
 
-    camelcase_sentence = convertSentenceToCamelCase(sentence)
+    camelcase_sentence = convertSentenceToCamelCase(valid_sentence)
     
     print(camelcase_sentence)  # print new sentence which is in camelCase style
 
