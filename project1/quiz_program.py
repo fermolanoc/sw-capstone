@@ -1,73 +1,61 @@
-""" A quiz program. """
+""" 
+Quiz Program
 
-total_score = 0
+This program will present user categories to choose. Each category will contain different number of questions.
+When user answer each question, program will let user know if answer was right or wrong immediately.
 
-topic = input('Would you like art, or space questions? ')
-
-if topic == 'art':
-
-    print('Who painted the Mona Lisa?')
-    answer = input('Enter your answer: ')
-    if answer == 'Vincent Van Gogh':
-        print('Correct!')
-        total_score += 1
-    else:
-        print('Sorry, the answer is Leonardo Da Vinci.')
-
-    print('What precious stone is used to make the artist\'s pigment ultramarine?')
-    answer = input('Enter your answer: ')
-    if answer == 'Lapiz lazuli':
-        print('Correct!')
-        total_score += 1
-    else:
-        print('Sorry, the correct answer is Lapiz lazuli.')
-
-    print('Anish Kapoor\'s bean-shaped Cloud Gate scuplture is a landmark of which city?')
-    answer = input('Enter your answer: ')
-    if answer == 'Chicago':
-        print('Correct!')
-        total_score += 1
-    else:
-        print('Sorry, the correct answer is Chicago.')
-
-    print('End of quiz!')
-    print(f'Your total score on {topic} questions is {total_score} out of 3.')
-
-    if total_score == 3:
-        print('You got all the answers correct!')
+A score will be kept and when all the answers have been answered, total score will be shown.
+ """
 
 
-elif topic == 'space':
+# topic = input('Would you like art, or space questions? ')
 
-    print('Which planet is closest to the sun?')
-    answer = input('Enter your answer: ')
-    if answer == 'Mercury':
-        print('Correct!')
-        total_score += 1
-    else:
-        print('Sorry, the correct answer is Mercury.')
 
-    print('Which planet spins in the opposite direction to all the others in the solar system?')
-    answer = input('Enter your answer: ')
-    if answer == 'Venus':
-        print('Correct!')
-        total_score += 1
-    else:
-        print('Sorry, the correct answer is Venus.')
+topics = [{
+    'id': 1,
+    'name': 'art',
+    'questions': [
+        {
+            'Who painted the Mona Lisa?': 'Leonardo Da Vinci'
+        },
+        {
+            'What precious stone is used to make the artist\'s pigment ultramarine?': 'Lapiz lazuli'
+        },
+        {
+            'Anish Kapoor\'s bean-shaped Cloud Gate scuplture is a landmark of which city?': 'Chicago'
+        }
+    ]
+},
+    {
+    'id': 2,
+    'name': 'space',
+    'questions': [
+        {
+            'Which planet is closest to the sun?': 'Mercury'
+        },
+        {
+            'Which planet spins in the opposite direction to all the others in the solar system?': 'Venus'
+        },
+        {
+            'How many moons does Mars have?': '2'
+        }
+    ]
+}]
 
-    print('How many moons does Mars have?')
-    answer = input('Enter your answer: ')
-    if answer == '2':
-        print('Correct!')
-        total_score += 1
-    else:
-        print('Sorry, the correct answer is 2.')
 
-    print('End of quiz!')
-    print(f'Your total score on {topic} questions is {total_score} out of 3.')
+def get_categories():
+    for topic in topics:
+        print(f"\tPress {topic['id']} for {topic['name']}")
 
-    if total_score == 3:
-        print('You got all the answers correct!')
+    user_choice = input('Selection: ')
 
-else:
-    print('That is not a valid topic. Restart the program to try again.')
+
+def main():
+    total_score = 0
+
+    print('Let\'s play Trivia. Choose one of the following categories:')
+
+    user_choice = get_categories()
+
+
+main()
