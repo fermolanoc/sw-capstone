@@ -8,9 +8,7 @@ A score will be kept and when all the answers have been answered, total score wi
  """
 
 
-# topic = input('Would you like art, or space questions? ')
-
-
+# Structure with list of topics data. Each list item contain a dictionary with a topic details
 topics = [{
     'id': '1',
     'name': 'art',
@@ -43,29 +41,39 @@ topics = [{
 }]
 
 
+# function to get the list of categories indexes
 def get_categories():
     category_ids = []
 
+    # loop thru the topics list
     for topic in topics:
         print(f"\tPress {topic['id']} for {topic['name']}")
+        # add topic id to the array category_ids
         category_ids.append(topic['id'])
 
     return category_ids
 
 
+# function to show user questions corresponding to the category chosen. Score will be updated here
 def get_questions(category_id, score):
+    # get name of category user chose
     category_name = topics[int(category_id) - 1]['name']
-    print(f'\nOk, you chose {category_name.title()}. Here are the questions: ')
+    print(f'\nOk, you chose {category_name.upper()}. Here are the questions: ')
 
+    # get the list of questions existing on chosen category
     questions = topics[int(category_id) - 1]['questions']
     for item in questions:
-        for question in item.keys():
+        for question in item.keys():  # get only the key for each question which is the question itself
             user_answer = input(f'{question} ')
+
+            # if user's answer is equal to the value assigned to the question (key), increase score by 1
             if user_answer.lower() == item[question].lower():
                 print('Correct\n')
                 score += 1
             else:
                 print(f'No. Answer is {item[question]}\n')
+
+    return category_name, score
 
 
 def main():
@@ -73,18 +81,26 @@ def main():
 
     print('Let\'s play Trivia. Choose one of the following categories:')
 
+    # show category id's and names to user to choose and get list of category ids
     category_ids = get_categories()
 
-    user_choice = input('Selection: ')
-    valid_option = False
+    user_choice = input('Selection: ')  # get user selection
+    valid_option = False  # flag to validate user selection
+
     while not valid_option:
+        # if user chose a number that exist on the category_ids list, raise flag to stop loop, and read questions for that category
         if user_choice in category_ids:
             valid_option = True
-            score = get_questions(user_choice, total_score)
+            # get category name and score updated
+            category, score = get_questions(user_choice, total_score)
             break
         else:
             print('That is not a valid topic')
             user_choice = input('Select a category number: ')
+
+    # print results
+    print(
+        f"Your total score on category {category.upper()} is {score} out of {len(topics[int(user_choice) - 1]['questions'])}")
 
 
 main()
