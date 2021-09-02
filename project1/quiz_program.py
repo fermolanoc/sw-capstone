@@ -12,7 +12,7 @@ A score will be kept and when all the answers have been answered, total score wi
 
 
 topics = [{
-    'id': 1,
+    'id': '1',
     'name': 'art',
     'questions': [
         {
@@ -27,7 +27,7 @@ topics = [{
     ]
 },
     {
-    'id': 2,
+    'id': '2',
     'name': 'space',
     'questions': [
         {
@@ -44,10 +44,28 @@ topics = [{
 
 
 def get_categories():
+    category_ids = []
+
     for topic in topics:
         print(f"\tPress {topic['id']} for {topic['name']}")
+        category_ids.append(topic['id'])
 
-    user_choice = input('Selection: ')
+    return category_ids
+
+
+def get_questions(category_id, score):
+    category_name = topics[int(category_id) - 1]['name']
+    print(f'\nOk, you chose {category_name.title()}. Here are the questions: ')
+
+    questions = topics[int(category_id) - 1]['questions']
+    for item in questions:
+        for question in item.keys():
+            user_answer = input(f'{question} ')
+            if user_answer.lower() == item[question].lower():
+                print('Correct\n')
+                score += 1
+            else:
+                print(f'No. Answer is {item[question]}\n')
 
 
 def main():
@@ -55,7 +73,18 @@ def main():
 
     print('Let\'s play Trivia. Choose one of the following categories:')
 
-    user_choice = get_categories()
+    category_ids = get_categories()
+
+    user_choice = input('Selection: ')
+    valid_option = False
+    while not valid_option:
+        if user_choice in category_ids:
+            valid_option = True
+            score = get_questions(user_choice, total_score)
+            break
+        else:
+            print('That is not a valid topic')
+            user_choice = input('Select a category number: ')
 
 
 main()
