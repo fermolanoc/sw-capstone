@@ -47,7 +47,7 @@ def get_categories():
 
     # loop thru the topics list
     for topic in topics:
-        print(f"\tPress {topic['id']} for {topic['name']}")
+        print(f"\tPress {topic['id']} for {topic['name'].title()}")
         # add topic id to the array category_ids
         category_ids.append(topic['id'])
 
@@ -77,6 +77,18 @@ def get_questions(category_id, score):
 
 
 def main():
+    # Add another category before user selection
+    # topics.append({
+    #     'id': '3',
+    #     'name': 'sports',
+    #     'questions': [{
+    #           'What does MLB stand for?': 'Major League Baseball'
+    #     },
+    #         {
+    #         'Which country has won the soccer world cup the most times?': 'Brasil'
+    #     }]
+    # })
+
     total_score = 0
 
     print('Let\'s play Trivia. Choose one of the following categories:')
@@ -91,7 +103,8 @@ def main():
         # if user chose a number that exist on the category_ids list, raise flag to stop loop, and read questions for that category
         if user_choice in category_ids:
             valid_option = True
-            # get category name and score updated
+            # call get_questions method passing category user chose and score which initially is 0.
+            # Category questions will be asked and score will be updated and returned as well as the category name
             category, score = get_questions(user_choice, total_score)
             break
         else:
@@ -99,8 +112,13 @@ def main():
             user_choice = input('Select a category number: ')
 
     # print results
+    number_of_questions = len(topics[int(user_choice) - 1]['questions'])
     print(
-        f"Your total score on category {category.upper()} is {score} out of {len(topics[int(user_choice) - 1]['questions'])}")
+        f"Your total score on category {category.upper()} is {score} out of {number_of_questions}")
+
+    # message to be shown only if all answers were right
+    if score == number_of_questions:
+        print("You got all the answers correct")
 
 
 main()
