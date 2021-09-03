@@ -76,22 +76,54 @@ def get_questions(category_id, score):
     return category_name, score
 
 
+def add_topics(number_of_topics_to_add):
+
+    for i in range(number_of_topics_to_add):
+        # get id of last topic currently existing on topics list
+        last_topic = int(topics[-1]['id'])
+        topic_name = input('Enter name of topic/category: ')
+
+        topics.append({
+            'id': f'{last_topic + 1}',
+            'name': f'{topic_name}',
+            'questions': []
+        })
+
+        add_questions = input(
+            f'Enter Y to add a question to {topic_name} topic now or 0 to skip ')
+        while add_questions.upper() == 'Y':
+            question = input('Type the question: ')
+            answer = input('Now enter the right answer: ')
+
+            # dictionary to be added with the key:value -> question : answer
+            question_answer = {question: answer}
+            topics[-1]['questions'].append(question_answer)
+
+            add_questions = input(
+                f'Enter Y to add another question or 0 to skip ')
+
+        """
+        For testing purposes:
+        topic name: sports
+
+        Questions with their respective answers to add:
+        {
+                'What does MLB stand for?': 'Major League Baseball'
+        },
+        {
+                'Which country has won the soccer world cup the most times?': 'Brasil'
+        }
+        """
+
+
 def main():
-    # Add another category before user selection
-    # topics.append({
-    #     'id': '3',
-    #     'name': 'sports',
-    #     'questions': [{
-    #           'What does MLB stand for?': 'Major League Baseball'
-    #     },
-    #         {
-    #         'Which country has won the soccer world cup the most times?': 'Brasil'
-    #     }]
-    # })
+    """ Add another category before user selection """
+    # topics_to_add = int(input('How many topics do you want to add? '))
+    # add_topics(topics_to_add)
 
     total_score = 0
 
-    print('Let\'s play Trivia. Choose one of the following categories:')
+    print('Let\'s play Trivia. Choose one of the following categories, answer right as many questions as possible and prove how smart you are:')
 
     # show category id's and names to user to choose and get list of category ids
     category_ids = get_categories()
